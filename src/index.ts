@@ -4,9 +4,9 @@ import { DuckDBConnection } from "@duckdb/node-api";
 import { logConfig } from "./config/logger";
 import { meterClient } from "./config/meter-client";
 import { duckDbInstance } from "./config/duckdb";
-import { newMetersPoll } from "./scripts/poll-for-new-meters";
-import { err, Result } from "neverthrow";
-import { ingestNewData } from "./scripts/ingest-new-data";
+// import { newMetersPoll } from "./scripts/poll-for-new-meters";
+// import { err, Result } from "neverthrow";
+// import { ingestNewData } from "./scripts/ingest-new-data";
 
 let db: DuckDBConnection;
 const app = new Elysia()
@@ -54,18 +54,18 @@ const app = new Elysia()
     duckDbInstance.closeSync();
   });
 
-pollData();
+// pollData();
 app.listen(3001);
 
-async function pollData(): Promise<Result<void, string>> {
-  while (true) {
-    const meterIds = await newMetersPoll();
-    if (!meterIds) return err("meterIds is undefined");
+// async function pollData(): Promise<Result<void, string>> {
+//   while (true) {
+//     const meterIds = await newMetersPoll();
+//     if (!meterIds) return err("meterIds is undefined");
 
-    for (const id of meterIds) {
-      await ingestNewData(meterClient, id, db);
-    }
+//     for (const id of meterIds) {
+//       await ingestNewData(meterClient, id, db);
+//     }
 
-    await Bun.sleep(60_000 * 30);
-  }
-}
+//     await Bun.sleep(60_000 * 30);
+//   }
+// }
