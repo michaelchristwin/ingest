@@ -4,7 +4,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
-    "start": "bun run src/index.ts"
+    "start": "bun run src/index.ts",
+    "worker": "bun run src/scripts/ingest-historical.ts"
   },
   "dependencies": {
     "@duckdb/node-api": "^1.4.4-r.1",
