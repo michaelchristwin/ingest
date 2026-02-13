@@ -1,0 +1,23 @@
+{
+  "name": "ingest",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "@duckdb/node-api": "^1.4.4-r.1",
+    "elysia": "latest",
+    "graphql-ws": "^6.0.7",
+    "logixlysia": "^6.2.0",
+    "m3ter-graphql-client": "^2.1.3",
+    "neverthrow": "^8.2.0",
+    "viem": "^2.45.3"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "eslint-plugin-neverthrow": "^1.1.4"
+  },
+  "module": "src/index.js"
+}
