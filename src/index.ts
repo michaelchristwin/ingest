@@ -4,9 +4,6 @@ import { DuckDBConnection } from "@duckdb/node-api";
 import { logConfig } from "./config/logger";
 import { meterClient } from "./config/meter-client";
 import { duckDbInstance } from "./config/duckdb";
-// import { newMetersPoll } from "./scripts/poll-for-new-meters";
-// import { err, Result } from "neverthrow";
-// import { ingestNewData } from "./scripts/ingest-new-data";
 
 let db: DuckDBConnection;
 const app = new Elysia()
@@ -41,7 +38,7 @@ const app = new Elysia()
   )
   .get("/", async ({ set }) => {
     try {
-      const dataPointEdges = await meterClient.v2.meters.getMeters();
+      const dataPointEdges = await meterClient.meters.getMeters();
       set.status = 200;
 
       return { Meters: dataPointEdges };
@@ -54,7 +51,6 @@ const app = new Elysia()
     duckDbInstance.closeSync();
   });
 
-// pollData();
 app.listen(3001);
 
 // async function pollData(): Promise<Result<void, string>> {
