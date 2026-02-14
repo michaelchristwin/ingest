@@ -53,15 +53,4 @@ const app = new Elysia()
 
 app.listen(3001);
 
-// async function pollData(): Promise<Result<void, string>> {
-//   while (true) {
-//     const meterIds = await newMetersPoll();
-//     if (!meterIds) return err("meterIds is undefined");
 
-//     for (const id of meterIds) {
-//       await ingestNewData(meterClient, id, db);
-//     }
-
-//     await Bun.sleep(60_000 * 30);
-//   }
-// }

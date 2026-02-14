@@ -6,6 +6,8 @@ import { duckDbInstance } from "../config/duckdb";
 import { newMetersPoll } from "./poll-for-new-meters";
 import { meterClient } from "../config/meter-client";
 import { DuckDBConnection } from "@duckdb/node-api";
+import { Result, err } from "neverthrow";
+import { ingestNewData } from "./ingest-new-data";
 
 export async function ingestHistoricalData(
   client: MeterClient,
@@ -146,4 +148,19 @@ const ingestall = async () => {
   db.closeSync();
 };
 
+async function pollData(): Promise<Result<void, string>> {
+  const db = await duckDbInstance.connect();
+  while (true) {
+    const meterIds = await newMetersPoll();
+    if (!meterIds) return err("meterIds is undefined");
+
+    for (const id of meterIds) {
+      await ingestNewData(meterClient, id, db);
+    }
+
+    await Bun.sleep(60_000 * 30);
+  }
+}
+
 ingestall();
+pollData();
